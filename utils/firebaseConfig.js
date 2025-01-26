@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,6 +18,18 @@ const firebaseConfig = {
   appId: "1:706576628564:web:02928610b31d7e5bbfe6c1",
   measurementId: "G-5QJ623Y26Y"
 };
+
+if (isSupported()) {
+
+    // Initialize Analytics tracking if cookies are available
+
+    analytics.logEvent('page_view');
+
+} else {
+
+    console.warn("Firebase Analytics not supported in this environment due to cookie restrictions");
+
+}
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
